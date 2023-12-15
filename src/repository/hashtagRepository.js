@@ -28,6 +28,15 @@ class HashtagRepository {
             console.log(error);
         }
     }
+    async getAll(){
+        try {
+            const filter = {};
+            const tags = await Hashtag.find(filter);
+            return tags;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     async findByName(titleList){
         try {
