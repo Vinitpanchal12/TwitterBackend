@@ -46,6 +46,25 @@ class TweetService {
     //         console.log(error); 
     //     }
     // }
+
+    async getAll(){
+        try {
+            const response = await this.tweetRepository.getAll();
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async get(id){
+        try {
+            const response = await this.tweetRepository.get(id);
+            return response;
+        } catch (error) {
+            
+            console.log(error);
+        }
+    }
 }
 
 module.exports = TweetService

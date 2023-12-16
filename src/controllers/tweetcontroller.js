@@ -41,7 +41,48 @@ const  destroy =async (req, res)=>{
     }
 }
 
+const  getAll =async (req, res)=>{
+    try {
+        const response = await  tweetService.getAll();
+        return res.status(201).json({
+            data: response,
+            message: 'successfully fetched all tweets',
+            success: true,
+            err: {}
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            data: {},
+            message: 'not able to  fetch all  tweets',
+            success: false,
+            err: error
+        });
+    }
+}
+
+const  get =async (req, res)=>{
+    try {
+        const response = await  tweetService.get(req.params.id);
+        return res.status(201).json({
+            data: response,
+            message: 'successfully fetched a tweet',
+            success: true,
+            err: {}
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            data: {},
+            message: 'not able to  fetch a tweet',
+            success: false,
+            err: error
+        });
+    }
+}
 module.exports = {
     create,
-    destroy
+    destroy,
+    getAll,
+    get
 }
