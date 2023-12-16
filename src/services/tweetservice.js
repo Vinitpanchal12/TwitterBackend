@@ -29,23 +29,20 @@ class TweetService {
         }
     }
 
-    // async destroy(id){
-    //     try {
-    //         const response = this.tweetRepository.destroy(id);
-    //         let allTags = await this.hashtagRepository.getAll();
-    //         //allTags = allTags.map(tags => tags.title);
-    //         const presentTags = allTags.filter(tag => allTags.includes({tag.tweets.[] : id}));
-    //         console.log(presentTags);
-    //         //console.log(allTags);
-    //         presentTags.forEach((tag) =>{
-    //             tag.tweets.pop(presentTags.id);
-    //             tag.save();
-    //         });
-    //         return response;
-    //     } catch (error) {
-    //         console.log(error); 
-    //     }
-    // }
+    async destroy(id){
+        try {
+            const response = this.tweetRepository.destroy(id);
+            let allTags = await this.hashtagRepository.getAll();
+            const presentTags = allTags.filter(tag => tag.tweets.includes(id));
+            presentTags.forEach((tag) =>{
+                tag.tweets.pop(presentTags.id);
+                tag.save();
+            });
+            return response;
+        } catch (error) {
+            console.log(error); 
+        }
+    }
 
     async getAll(){
         try {
