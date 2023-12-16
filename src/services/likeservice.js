@@ -9,11 +9,11 @@ class LikeService{
     async toggleLike(modelId, modelType, userId){
         //console.log(modelId);  
         if(modelType == 'Tweet'){
-            var likeable = await this.tweetRepository.get(modelId);
+            var likeable = await this.tweetRepository.find(modelId); 
         }else if(modelType =='Comment'){
         //todo
         }else{
-            console.log(error);
+            console.log("something wrong at  service");
         }
         const exists = await this.likeRepository.findByUserAndLikeable({
             user : userId,
@@ -24,10 +24,10 @@ class LikeService{
         if(exists){
             likeable.likes.pull(exists.id);
             await likeable.save();
-            await exists.remove();
+            await exists.deleteOne();
             var isAdded = false;
         }else{
-            const newLike = await this.likeRepository.findByUserAndLikeable({
+            const newLike = await this.likeRepository.create({
                 user : userId,
                 likeable:modelId,
                 onModel:modelType
@@ -37,6 +37,15 @@ class LikeService{
             var isAdded = true;
         }
         return isAdded;
+    }
+
+    async createLike(data){
+        try {
+            const result = await this.likeRepository.create(data);
+            return result;
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 module.exports = LikeService;

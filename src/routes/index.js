@@ -11,6 +11,7 @@ router.get('/tweet/:id',TweetController.get);
 router.delete('/tweet/:id', TweetController.destroy);
 
 router.post('/likes/toggle',LikeController.toggleLike);
+router.post('/likes',LikeController.like);
 
 router.post('/user',UserController.createUser);
 

@@ -3,7 +3,8 @@ const likeService = new LikeService();
 
 const  toggleLike =async (req, res)=>{
     try {
-        const response = await likeService.toggleLike(req.query.modelId,req.query.modelType,req.body.userId);
+        const response = await likeService.toggleLike(req.query.modelId,
+            req.query.modelType,req.body.userId);
         return res.status(201).json({
             data: response,
             message: 'successfully toggle',
@@ -23,7 +24,11 @@ const  toggleLike =async (req, res)=>{
 
 const like =async (req, res)=>{
     try {
-        const response = await likeService.toggleLike(req.query.modelId,req.query.modelType,req.body.userId);
+        const response = await likeService.createLike({
+            user: req.body.userId,
+            onModel: req.body.onModel,
+            likeable: req.body.likeable
+        });
         return res.status(201).json({
             data: response,
             message: 'successfully liked or unliked',
@@ -36,11 +41,12 @@ const like =async (req, res)=>{
             data: {},
             message: 'something wrong in controller',
             success: false,
-            err: error
+            err: {error}
         });
     }
 }
 
 module.exports = {
-    toggleLike
+    toggleLike,
+    like    
 }
