@@ -1,9 +1,10 @@
-const {LikeRepository,TweetRepository} = require('../repository/index')
+const {LikeRepository,TweetRepository, CommentRepository} = require('../repository/index')
 
 class LikeService{
     constructor(){
         this.likeRepository = new LikeRepository();
         this.tweetRepository = new TweetRepository();
+        this.commentRepository= new CommentRepository();
     }
 
     async toggleLike(modelId, modelType, userId){
@@ -12,6 +13,7 @@ class LikeService{
             var likeable = await this.tweetRepository.find(modelId); 
         }else if(modelType =='Comment'){
         //todo
+        //    var likeable = await this.commentRepository.get(modelId);
         }else{
             console.log("something wrong at  service");
         }

@@ -4,7 +4,7 @@ const userService = new UserService();
 
 const createUser = async (req,res)=>{
     try {
-        const response = await userService.create(req.body);
+        const response = await userService.signup(req.body);
         return res.status(201).json({
             data: response,
             message: 'created user ',
