@@ -2,7 +2,7 @@ const UserService= require('../services/userservice');
 const userService = new UserService();
 
 
-const createUser = async (req,res)=>{
+const signup = async (req,res)=>{
     try {
         const response = await userService.signup(req.body);
         return res.status(201).json({
@@ -21,6 +21,7 @@ const createUser = async (req,res)=>{
         });
     }
 }
+
 module.exports = {
-    createUser
+    signup
 }

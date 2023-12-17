@@ -3,7 +3,7 @@ const router = express.Router();
 
 const TweetController = require('../controllers/tweetcontroller')
 const LikeController = require('../controllers/likecontroller')
-const UserController  = require('../controllers/usercontroller')
+const AuthController  = require('../controllers/authcontroller')
 const CommentController = require('../controllers/commentcontroller')
 
 router.post('/comment',CommentController.createComment);
@@ -16,7 +16,7 @@ router.delete('/tweet/:id', TweetController.destroy);
 router.post('/likes/toggle',LikeController.toggleLike);
 router.post('/likes',LikeController.like);
 
-router.post('/user',UserController.createUser);
+router.post('/user',AuthController.signup);
 
 
 
