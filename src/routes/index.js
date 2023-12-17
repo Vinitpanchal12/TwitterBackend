@@ -4,6 +4,9 @@ const router = express.Router();
 const TweetController = require('../controllers/tweetcontroller')
 const LikeController = require('../controllers/likecontroller')
 const UserController  = require('../controllers/usercontroller')
+const CommentController = require('../controllers/commentcontroller')
+
+router.post('/comment',CommentController.createComment);
 
 router.post('/tweet',TweetController.create );
 router.get('/tweets',TweetController.getAll);
@@ -14,6 +17,8 @@ router.post('/likes/toggle',LikeController.toggleLike);
 router.post('/likes',LikeController.like);
 
 router.post('/user',UserController.createUser);
+
+
 
 
 module.exports = router; 
