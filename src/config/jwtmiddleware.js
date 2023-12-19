@@ -9,15 +9,19 @@ const opts = {
     secretOrKey : 'twitter_secret'
 }
 const passportAuth=(passport)=>{
-    passport.use(new JwtStrategy(opts,async (jwt_payload, done)=> {
-        const user = await User.findOne(jwt_payload); 
-            if (!user) {
-                return done(null, false);
-            } else {
-                return done(null, user);
-                // or you could create a new account
+    try {
+        passport.use(new JwtStrategy(opts,async (jwt_payload, done)=> {
+            const user = await User.findById(jwt_payload.id);
+                if (!user) {
+                     done(null, false);
+                } else {
+                     done(null, user);
+                    // or you could create a new account
+                }
             }
-        }
-    ));
+        ));
+    } catch (error) {
+        throw error;
+    }
 }
-module.exports= passportAuth;
+module.exports= {passportAuth};

@@ -25,27 +25,14 @@ const signup = async (req,res)=>{
 
 const login = async(req,res)=>{
     try {
-        const user = await userService.getUserByEmail(req.body.email);
-        if(!user){
-            return res.status(401).json({
-                message: 'no user found ',
-                success: false,
-            });
-        }
-        if(!user.comparePassword(req.body.password)){
-            return res.status(401).json({
-                message: 'wrong password found ',
-                success: false,
-            });
-        }
-        const token = user.genJWT();
-        //console.log(token);
-        return res.status(201).json({
+        const token = await userService.signin(req.body);
+        return res.status(401).json({
             data: token,
-            message: 'successfully logged in ',
+            message: 'successful  ',
             success: true,
             err: {}
-        })
+        });
+
     } catch (error) {
         return res.status(500).json({
             data: {},
